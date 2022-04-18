@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\panjar\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\panjar\\.nuget\\packages"
-    ]
-  }
-}
