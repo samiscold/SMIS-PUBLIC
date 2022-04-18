@@ -1,0 +1,15 @@
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\bin\Debug\net5.0\Persistance.deps.json
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\bin\Debug\net5.0\Persistance.dll
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\bin\Debug\net5.0\ref\Persistance.dll
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\bin\Debug\net5.0\Persistance.pdb
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\bin\Debug\net5.0\Domain.dll
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\bin\Debug\net5.0\Domain.pdb
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.csproj.AssemblyReference.cache
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.AssemblyInfoInputs.cache
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.AssemblyInfo.cs
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.csproj.CoreCompileInputs.cache
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.csproj.CopyComplete
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.dll
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\ref\Persistance.dll
+C:\Users\panjar\Desktop\SMIS-UBT-LC1\Persistance\obj\Debug\net5.0\Persistance.pdb
