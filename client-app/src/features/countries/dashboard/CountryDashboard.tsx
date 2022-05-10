@@ -13,18 +13,19 @@ interface Props {
     closeForm: () => void;
     createOrEdit: (country: Country) => void;
     deleteCountry: (id: string) => void;
+    submitting: boolean;
 }
 
-export default function CountryDashboard({ countries, selectedCountry, selectCountry, editMode, openForm, closeForm, createOrEdit, deleteCountry }: Props) {
+export default function CountryDashboard({ countries, selectedCountry, selectCountry, editMode, openForm, closeForm, createOrEdit, deleteCountry, submitting }: Props) {
     return (
         <Row>
             <Col xs="6">
-                <CountryList countries={countries} selectCountry={selectCountry} openForm={openForm} deleteCountry={deleteCountry} />
+                <CountryList countries={countries} selectCountry={selectCountry} openForm={openForm} deleteCountry={deleteCountry} submitting={submitting} />
             </Col>
             <Col xs="2">
             </Col>
             <Col xs="4">
-                {editMode && <CountryForm closeForm={closeForm} country={selectedCountry} createOrEdit={createOrEdit} />}
+                {editMode && <CountryForm closeForm={closeForm} country={selectedCountry} createOrEdit={createOrEdit} submitting={submitting} />}
             </Col>
         </Row>
     )

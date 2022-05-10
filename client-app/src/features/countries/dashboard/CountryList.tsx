@@ -1,4 +1,5 @@
-import { Badge, Button, Col, ListGroup } from "react-bootstrap";
+import { SyntheticEvent, useState } from "react";
+import { Badge, Button, Col, ListGroup, Spinner } from "react-bootstrap";
 import { Country } from "../../../app/models/country"
 
 interface Props {
@@ -6,9 +7,17 @@ interface Props {
     selectCountry: (id: string) => void;
     openForm: (id: string) => void;
     deleteCountry: (id: string) => void;
+    submitting: boolean;
 }
 
-export default function CountryList({ countries, selectCountry, openForm, deleteCountry }: Props) {
+export default function CountryList({ countries, selectCountry, openForm, deleteCountry, submitting }: Props) {
+    const [target, setTarget] = useState('');
+
+    function handleCountryDelete(e: SyntheticEvent<HTMLButtonElement>, id: string){
+        setTarget(e.currentTarget.name);
+        deleteCountry(id);
+    }
+
     return (
         <ListGroup>
             {countries.map(country => (
@@ -26,7 +35,15 @@ export default function CountryList({ countries, selectCountry, openForm, delete
                         </Col>
                     </Col>
                     <Button onClick={() => openForm(country.id)} variant="primary">Edit</Button>
-                    <Button onClick={() => deleteCountry(country.id)} variant="danger">Delete</Button>
+                    <Button name={country.id} onClick={(e) => handleCountryDelete(e, country.id)} variant="danger">
+                        {submitting && target === country.id ? <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        /> : 'Delete'}
+                    </Button>
                 </ListGroup.Item>
             ))}
         </ListGroup>

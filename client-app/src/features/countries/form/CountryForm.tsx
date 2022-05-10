@@ -1,14 +1,15 @@
-import { ChangeEvent, useState } from "react";
-import { Form, Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Form, Button, ButtonGroup, ButtonToolbar, Spinner } from "react-bootstrap";
 import { Country } from "../../../app/models/country";
 
 interface Props {
     closeForm: () => void;
     country: Country | undefined;
     createOrEdit: (country: Country) => void;
+    submitting: boolean;
 }
 
-export default function CountryForm({ closeForm, country: selectedCountry, createOrEdit }: Props) {
+export default function CountryForm({ closeForm, country: selectedCountry, createOrEdit, submitting }: Props) {
 
     const initialState = selectedCountry ?? {
         id: '',
@@ -17,18 +18,19 @@ export default function CountryForm({ closeForm, country: selectedCountry, creat
     }
 
     const [country, setCountry] = useState(initialState);
-    
+
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
-        setCountry({...country, [name]: value});
+        setCountry({ ...country, [name]: value });
     }
 
-    function handleSubmit() {
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault();
         createOrEdit(country);
     }
 
     return (
-        <Form onSubmit={handleSubmit} autoComplete='off' className="border border-1 p-5">
+        <Form onSubmit={(e) => handleSubmit(e)} autoComplete='off' className="border border-1 p-5">
             <p className="text-muted mb-3">
                 Fields marked with <b>*</b> are mandatory.
             </p>
@@ -49,7 +51,13 @@ export default function CountryForm({ closeForm, country: selectedCountry, creat
                 </ButtonGroup>
                 <ButtonGroup>
                     <Button variant="success" type="submit">
-                        Submit
+                        {submitting ? <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        /> : 'Submit'}
                     </Button>
                 </ButtonGroup>
             </ButtonToolbar>

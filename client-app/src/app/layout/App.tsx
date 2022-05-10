@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import NavBar from './NavBar';
-import axios from 'axios';
 import { Country } from '../models/country';
 import { Container } from 'react-bootstrap';
 import CountryDashboard from '../../features/countries/dashboard/CountryDashboard';
 import {v4 as uuid} from 'uuid';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponent';
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    axios.get<Country[]>('http://localhost:5000/api/countries').then(response => {
-      setCountries(response.data);
+    agent.Countries.list().then(response => {
+      setCountries(response);
+      setLoading(false);
     });
   }, []);
 
@@ -36,17 +40,33 @@ function App() {
   }
 
   function handleCreateOrEditCountry(country: Country) {
-    country.id
-     ? setCountries([...countries.filter(x => x.id !== country.id), country])
-     : setCountries([...countries, {...country, id: uuid()}]);
-
-     setEditMode(false);
+    setSubmitting(true);
+    if (country.id) {
+      agent.Countries.update(country).then(() => {
+        setCountries([...countries.filter(x => x.id !== country.id), country]);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    } else {
+      country.id = uuid();
+      agent.Countries.create(country).then(() => {
+        setCountries([...countries, country]);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
   }
 
   function handleDeleteCountry(id: string) {
-    setCountries([...countries.filter(x => x.id !== id)]);
-    setEditMode(false);
+    setSubmitting(true);
+    agent.Countries.delete(id).then(() => {
+      setCountries([...countries.filter(x => x.id !== id)]);
+      setEditMode(false);
+      setSubmitting(false);
+    })
   }
+
+  if (loading) return <LoadingComponent content='Loading app ...' />;
 
   return (
     <div className="App">
@@ -61,6 +81,7 @@ function App() {
         closeForm={handleFormClose}
         createOrEdit={handleCreateOrEditCountry}
         deleteCountry={handleDeleteCountry}
+        submitting={submitting}
         />
       </Container>
     </div>
