@@ -1,16 +1,12 @@
+import { observer } from "mobx-react-lite";
 import { SyntheticEvent, useState } from "react";
 import { Badge, Button, Col, ListGroup, Spinner } from "react-bootstrap";
-import { Country } from "../../../app/models/country"
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-    countries: Country[];
-    selectCountry: (id: string) => void;
-    openForm: (id: string) => void;
-    deleteCountry: (id: string) => void;
-    submitting: boolean;
-}
+export default observer(function CountryList() {
+    const {countryStore} = useStore();
+    const { deleteCountry, countriesByName, loading, openForm } = countryStore;
 
-export default function CountryList({ countries, selectCountry, openForm, deleteCountry, submitting }: Props) {
     const [target, setTarget] = useState('');
 
     function handleCountryDelete(e: SyntheticEvent<HTMLButtonElement>, id: string){
@@ -20,7 +16,7 @@ export default function CountryList({ countries, selectCountry, openForm, delete
 
     return (
         <ListGroup>
-            {countries.map(country => (
+            {countriesByName.map(country => (
                 <ListGroup.Item key={country.id} className="d-flex justify-content-between align-items-center">
                     <Col xs="9" className="d-flex justify-content-around align-items-center">
                         <Col xs="8">
@@ -36,7 +32,7 @@ export default function CountryList({ countries, selectCountry, openForm, delete
                     </Col>
                     <Button onClick={() => openForm(country.id)} variant="primary">Edit</Button>
                     <Button name={country.id} onClick={(e) => handleCountryDelete(e, country.id)} variant="danger">
-                        {submitting && target === country.id ? <Spinner
+                        {loading && target === country.id ? <Spinner
                             as="span"
                             animation="border"
                             size="sm"
@@ -48,4 +44,4 @@ export default function CountryList({ countries, selectCountry, openForm, delete
             ))}
         </ListGroup>
     )
-}
+})

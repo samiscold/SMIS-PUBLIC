@@ -1,15 +1,11 @@
+import { observer } from "mobx-react-lite";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, Button, ButtonGroup, ButtonToolbar, Spinner } from "react-bootstrap";
-import { Country } from "../../../app/models/country";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-    closeForm: () => void;
-    country: Country | undefined;
-    createOrEdit: (country: Country) => void;
-    submitting: boolean;
-}
-
-export default function CountryForm({ closeForm, country: selectedCountry, createOrEdit, submitting }: Props) {
+export default observer(function CountryForm() {
+    const {countryStore} = useStore();
+    const { selectedCountry, closeForm, createCountry, updateCountry, loading } = countryStore;
 
     const initialState = selectedCountry ?? {
         id: '',
@@ -26,7 +22,7 @@ export default function CountryForm({ closeForm, country: selectedCountry, creat
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        createOrEdit(country);
+        country.id ? updateCountry(country) : createCountry(country);
     }
 
     return (
@@ -51,7 +47,7 @@ export default function CountryForm({ closeForm, country: selectedCountry, creat
                 </ButtonGroup>
                 <ButtonGroup>
                     <Button variant="success" type="submit">
-                        {submitting ? <Spinner
+                        {loading ? <Spinner
                             as="span"
                             animation="border"
                             size="sm"
@@ -63,4 +59,4 @@ export default function CountryForm({ closeForm, country: selectedCountry, creat
             </ButtonToolbar>
         </Form>
     )
-}
+})

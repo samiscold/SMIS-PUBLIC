@@ -1,10 +1,10 @@
+import { observer } from "mobx-react-lite";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { useStore } from "../stores/store";
 
-interface Props {
-    openForm: () => void;
-}
+export default observer(function NavBar() {
+    const {countryStore} = useStore();
 
-export default function NavBar({ openForm }: Props) {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" className="home-navbar">
             <Container>
@@ -13,10 +13,10 @@ export default function NavBar({ openForm }: Props) {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="#countries">Countries</Nav.Link>
-                        <Button variant="success" onClick={() => openForm()}>Create Country</Button>
+                        <Button variant="success" onClick={() => countryStore.openForm()}>Create Country</Button>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
     )
-}
+})
