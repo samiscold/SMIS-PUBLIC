@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import { useStore } from "../stores/store";
 
 export default observer(function NavBar() {
@@ -8,12 +9,12 @@ export default observer(function NavBar() {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" className="home-navbar">
             <Container>
-                <Navbar.Brand href="#home">SMIS</Navbar.Brand>
+                <Navbar.Brand as={NavLink} to='/' exact >SMIS</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#countries">Countries</Nav.Link>
-                        <Button variant="success" onClick={() => countryStore.openForm()}>Create Country</Button>
+                        <Nav.Link as={NavLink} to='/countries'>Countries</Nav.Link>
+                        <NavLink to='/createCountry'><Button variant="success" >Create Country</Button></NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

@@ -1,11 +1,12 @@
 import { observer } from "mobx-react-lite";
 import { SyntheticEvent, useState } from "react";
 import { Badge, Button, Col, ListGroup, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useStore } from "../../../app/stores/store";
 
 export default observer(function CountryList() {
     const {countryStore} = useStore();
-    const { deleteCountry, countriesByName, loading, openForm } = countryStore;
+    const { deleteCountry, countriesByName, loading } = countryStore;
 
     const [target, setTarget] = useState('');
 
@@ -30,7 +31,7 @@ export default observer(function CountryList() {
                             </div>
                         </Col>
                     </Col>
-                    <Button onClick={() => openForm(country.id)} variant="primary">Edit</Button>
+                    <Link to={`/manage/${country.id}`}><Button variant="primary">Edit</Button></Link>
                     <Button name={country.id} onClick={(e) => handleCountryDelete(e, country.id)} variant="danger">
                         {loading && target === country.id ? <Spinner
                             as="span"

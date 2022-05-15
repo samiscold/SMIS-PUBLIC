@@ -1,19 +1,27 @@
 import { observer } from "mobx-react-lite";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Form, Button, ButtonGroup, ButtonToolbar, Spinner } from "react-bootstrap";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useStore } from "../../../app/stores/store";
+import {v4 as uuid} from 'uuid';
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 export default observer(function CountryForm() {
+    const history = useHistory();
     const {countryStore} = useStore();
-    const { selectedCountry, closeForm, createCountry, updateCountry, loading } = countryStore;
+    const { createCountry, updateCountry, loading, loadCountry, setLoadingInitial, loadingInitial } = countryStore;
+    const {id} = useParams<{id: string}>();
 
-    const initialState = selectedCountry ?? {
+    const [country, setCountry] = useState({
         id: '',
         name: '',
         countryCode: ''
-    }
+    });
 
-    const [country, setCountry] = useState(initialState);
+    useEffect(() => {
+        if (id) loadCountry(id).then(country => setCountry(country!));
+        else setLoadingInitial(false);
+    }, [id, loadCountry, setLoadingInitial]);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
@@ -22,8 +30,18 @@ export default observer(function CountryForm() {
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        country.id ? updateCountry(country) : createCountry(country);
+        if (country.id.length === 0) {
+            let newCountry = {
+                ...country,
+                id: uuid()
+            };
+            createCountry(newCountry).then(() => history.push(`/countries`));
+        } else {
+            updateCountry(country).then(() => history.push(`/countries`));
+        }
     }
+
+    if (loadingInitial) return <LoadingComponent content='Loading country ...' />;
 
     return (
         <Form onSubmit={(e) => handleSubmit(e)} autoComplete='off' className="border border-1 p-5">
@@ -41,9 +59,9 @@ export default observer(function CountryForm() {
             </Form.Group>
             <ButtonToolbar className="float-end">
                 <ButtonGroup className="me-2">
-                    <Button onClick={closeForm} variant="secondary" type="button">
+                    <Link to='/countries'><Button variant="secondary" type="button">
                         Cancel
-                    </Button>
+                    </Button></Link>
                 </ButtonGroup>
                 <ButtonGroup>
                     <Button variant="success" type="submit">
