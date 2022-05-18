@@ -17,6 +17,16 @@ export default class CountryStore {
         return Array.from(this.countryRegistry.values()).sort((a, b) => a.name.localeCompare(b.name));
     }
 
+    get groupedCountries() {
+        return Object.entries(
+            this.countriesByName.reduce((countries, country) => {
+                const letter = country.name[0];
+                countries[letter] = countries[letter] ? [...countries[letter], country] : [country];
+                return countries;
+            }, {} as {[key: string] : Country[]})
+        )
+    }
+
     loadCountries = async () => {
         this.loadingInitial = true;
         try {

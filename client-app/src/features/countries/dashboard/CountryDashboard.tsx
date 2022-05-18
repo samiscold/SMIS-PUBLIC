@@ -20,11 +20,6 @@ export default observer(function CountryDashboard() {
             <Col xs="6">
                 <CountryList />
             </Col>
-            <Col xs="2">
-            </Col>
-            <Col xs="4">
-                <h2>Country filters</h2>
-            </Col>
         </Row>
     )
 })
