@@ -15,6 +15,8 @@ export default observer(function NavBar() {
                     <Nav className="me-auto">
                         <Nav.Link as={NavLink} to='/countries'>Countries</Nav.Link>
                         <NavLink to='/createCountry'><Button variant="success" >Create Country</Button></NavLink>
+                        <Nav.Link as={NavLink} to='/departments'>Departments</Nav.Link>
+                        <NavLink to='/createDepartment'><Button variant="success" >Create Departments</Button></NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

@@ -24,11 +24,14 @@ namespace API.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddCors(opt => 
+            services.AddCors(options =>
             {
-                opt.AddPolicy("CorsPolicy", policy => 
+                options.AddPolicy("ClientPermission", policy =>
                 {
-                    policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+                    policy.WithOrigins("https://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 

@@ -33,7 +33,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllers();
             services.AddApplicationServices(_config);
         }
@@ -52,7 +52,9 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors(
+        options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader()
+    );
 
             app.UseAuthorization();
 
