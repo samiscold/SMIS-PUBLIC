@@ -28,9 +28,10 @@ namespace Application.Departments
             {
                 var department = await _context.Departments.FindAsync(request.Department.Id);
 
-                _mapper.Map(request.Department, department);
+               _mapper.Map(request.Department, department);
 
-                await _context.SaveChangesAsync();
+                 _context.Entry<Department>(department).CurrentValues.SetValues(request.Department);
+                _context.SaveChanges();
 
                 return Unit.Value;
             }

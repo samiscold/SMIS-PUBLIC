@@ -34,7 +34,7 @@ export default function DepartmentListItem({ department }: Props) {
                     </div>
                 </Col>
             </Col>
-            <Link to={`/manage/${department.id}`}><Button variant="primary">Edit</Button></Link>
+            <Link to={`/manages/${department.id}`}><Button variant="primary">Edit</Button></Link>
             <Button name={department.id} onClick={(e) => handleDepartmentDelete(e, department.id)} variant="danger">
                 {loading && target === department.id ? <Spinner
                     as="span"
