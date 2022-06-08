@@ -36,7 +36,7 @@ export default class CountryStore {
             })
             this.setLoadingInitial(false);
         } catch(error) {
-            console.log(error);
+            console.log("here is issue" + error);
             this.setLoadingInitial(false);
         }
     }

@@ -10,5 +10,6 @@ namespace Persistence
         }
         
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }
