@@ -2,13 +2,16 @@ import React from 'react';
 import './App.css';
 import NavBar from './NavBar';
 import { Container } from 'react-bootstrap';
-import CountryDashboard from '../../features/countries/dashboard/CountryDashboard';
 import { observer } from 'mobx-react-lite';
 import { Route, useLocation } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
 import CountryForm from '../../features/countries/form/CountryForm';
+import CountryDashboard from '../../features/countries/dashboard/CountryDashboard';
 import DepartmentForm from '../../features/departments/form/DepartmentForm';
 import DepartmentDashboard from '../../features/departments/dashboard/DepartmentDashboard';
+import SubjectForm from '../../features/subjects/form/SubjectForm';
+import SubjectDashboard from '../../features/subjects/dashboard/SubjectDashboard';
+
 
 function App() {
   const location = useLocation();

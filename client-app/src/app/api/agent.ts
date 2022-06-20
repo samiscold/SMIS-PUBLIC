@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { Country } from '../models/country';
 import { Department } from '../models/department';
+import { Subject } from '../models/subject';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -46,9 +47,18 @@ const Departments = {
     delete: (id: string) => requests.del<void>(`/departments/${id}`)
 }
 
+const Subjects = {
+    list: () => requests.get<Subject[]>('/subjects'),
+    details: (id: string) => requests.get<Subject>(`/subjects/${id}`),
+    create: (subject: Subject) => requests.post<void>('/subjects', subject),
+    update: (subject: Subject) => requests.put<void>(`/subjects/${subject.id}`, subject),
+    delete: (id: string) => requests.del<void>(`/subjects/${id}`)
+}
+
 const agent = {
     Countries,
-    Departments
+    Departments,
+    Subjects
 }
 
 export default agent;
