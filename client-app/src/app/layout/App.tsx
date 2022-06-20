@@ -26,6 +26,8 @@ function App() {
               <Route key={location.key} path={['/createCountry', '/manage/:id']} component={CountryForm} />
               <Route exact path='/departments' component={DepartmentDashboard} />
               <Route key={location.pathname} path={['/createDepartment', '/manages/:id']} component={DepartmentForm} />
+              <Route exact path='/subjects' component={SubjectDashboard} />
+              <Route key={location.key + '-subject'} path={['/createSubject', '/manage-subject/:id']} component={SubjectForm} />
             </Container>
           </>
         )}
