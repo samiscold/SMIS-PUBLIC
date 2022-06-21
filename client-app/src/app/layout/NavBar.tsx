@@ -9,7 +9,17 @@ export default observer(function NavBar() {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" className="home-navbar">
             <Container>
-                <Navbar.Brand as={NavLink} to='/' exact >SMIS</Navbar.Brand>
+                
+                <Navbar.Brand as={NavLink} to='/' exact >
+                    <img
+                    alt="ubt-logo"
+                    src={require('../images/ubt-logo.png')}
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                    />{' '}
+                    UBT - SMIS
+                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

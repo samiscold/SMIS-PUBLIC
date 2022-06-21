@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import NavBar from './NavBar';
+import Footer from './Footer';
 import { Container } from 'react-bootstrap';
 import CountryDashboard from '../../features/countries/dashboard/CountryDashboard';
 import { observer } from 'mobx-react-lite';
@@ -14,7 +15,7 @@ function App() {
   const location = useLocation();
 
   return (
-    <div className="App">
+    <div className="App d-flex flex-column min-vh-100">
       <Route exact path='/' component={HomePage} />
       <Route
         path={'/(.+)'}
@@ -30,6 +31,9 @@ function App() {
           </>
         )}
       />
+
+
+      <Footer />
     </div>
   );
 }
