@@ -23,8 +23,8 @@ const Footer = () => <footer className="bg-light text-muted page-footer font-sma
             <div className="col-md-3 mb-md-0 mb-3">
                 <h5 className="text-uppercase">Crud Links</h5>
                 <ul className="list-unstyled">
-                    <li><a href="#!">Create Department</a></li>
-                    <li><a href="#!">Create Country</a></li>
+                    <li><a href="/createDepartment">Create Department</a></li>
+                    <li><a href="/createCountry">Create Country</a></li>
                 </ul>
             </div>
         </div>
